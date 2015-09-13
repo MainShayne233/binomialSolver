@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 public class QuadraticFormula {
-	
-	
-	
-	
 	
 	public static long gcd (double a, double b){
 		long a1;
@@ -26,16 +20,13 @@ public class QuadraticFormula {
 		return a1;
 	}
 	
-	
-	
-	
-	
-	public static double[] rationalize(double n){
-		double[] frac = new double[2];
+	public static long[] rationalize(double n){
+		long[] frac = new long[2];
 		double den;
 		String dec_string;
 		double dec_length;
 		double div;
+		long numerator, denominator;
 		if (n%1==0){
 			frac[0]=Math.round(n);
 			frac[1]=1;
@@ -45,22 +36,16 @@ public class QuadraticFormula {
 			dec_length = dec_string.length() - dec_string.indexOf('.') - 1;
 			den = Math.pow(10.0,dec_length);
 			n*=den;
-			System.out.println(n + " " + den);
 			div = gcd(n,den);
-			System.out.println(div);
-			frac[0]=n/div;
-			frac[1]=den/div;
+			n/=div;
+			den/=div;
+			numerator = (long) n;
+			denominator = (long) den;
+			frac[0]=numerator;
+			frac[1]=denominator;
 		}
 		return frac;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static boolean hasSolution (double a, double b, double c){
 		double value = (Math.pow(b,2.0) - 4*a*c);
@@ -70,7 +55,14 @@ public class QuadraticFormula {
 			return true;
 	}
 	
-	
+	public static double[] quadForm(double a, double b, double c){
+		double[] solutions = new double[2];
+		double num1 = b*-1 + Math.sqrt(Math.pow(b,2.0) - 4*a*c);
+		double num2 = b*-1 - Math.sqrt(Math.pow(b,2.0) - 4*a*c);
+		solutions[0] = num1/(2*a);
+		solutions[1] = num2/(2*a);
+		return solutions;
+	}
 	
 	
 	
@@ -79,8 +71,9 @@ public class QuadraticFormula {
 	
 	
 	public static void main (String[] args){
-		double[] rat = rationalize(3.66);
-		System.out.println(rat[0] + "/" + rat[1]);
+		double[] sol = quadForm(1,4,-8);
+		System.out.println(sol[0] + " " + sol[1]);
+		
 	}
 	
 }
